@@ -1,0 +1,9 @@
+# Ignore everything in src
+src/*
+
+# But include the receipt cropper module
+!src/Reciept Cropper Module.py
+
+# Include all verification images
+!verification images/
+!verification images/*
