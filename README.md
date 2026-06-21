@@ -1,19 +1,30 @@
 # Receipt Cropper Module
 
-A Python-based image processing module for detecting and cropping receipt images. This project contains experimental scripts used for testing image preprocessing, thresholding, OCR preparation, and receipt boundary detection techniques.
+A Python-based image processing module for detecting and cropping receipt images. This project contains scripts used for testing image preprocessing, thresholding, OCR preparation, and receipt boundary detection techniques.  Though intended to be used as a module, it can run as its own demo.
 
 ## Project Structure
 ```
 .
+├── .gitignore
+├── LICENSE
+├── README.md
+│
 ├── src
 │   └── Reciept Cropper Module.py
 │
 └── verification images
-    ├── Test Image 1.jpg
-    ├── Test Image 2.jpg
-    ├── Test Image 3.jpg
-    └── Test Image 4.jpg
+    ├── Archive
+    ├── Cropped
+    ├── Scanned
+    │   ├── Test Image 1.jpg
+    │   ├── Test Image 2.jpg
+    │   ├── Test Image 3.jpg
+    │   └── Test Image 4.jpg
+    │
+    └── Text
 ```
+
+Test images are located in the 'Scanned' folder, which is where the demo will look for them.  After the demo runs, the uncropped orginals will be placed into the 'Archive' folder, and the Cropped outputs will be placed in the 'Cropped' folder.  OCR Output will be in the 'Text' folder.
 
 ## Purpose
 
@@ -28,7 +39,7 @@ The included verification images are sample inputs used to test the cropping fun
 
 ## Requirements
 
-Python 3.x
+Python 3.14.3
 
 Install required dependencies:
 
