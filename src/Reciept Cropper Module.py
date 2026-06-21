@@ -286,7 +286,7 @@ if __name__ == '__main__':
     )
 
     # Change to directory containing new scans
-    os.chdir(r"X:\Your\Folder\Reciepts\New")
+    os.chdir(r"C:\Users\jerem\OneDrive\Documents\Code\Programming\Python\Reciept Cropper\verification images\scanned") #X:\Your\Folder\Reciepts\New")
 
     # Ignore previously generated IMG files
     jpeg_files = [
@@ -308,7 +308,7 @@ if __name__ == '__main__':
         im.save(
             os.path.join(
                 os.path.abspath(os.path.join(os.getcwd(), os.pardir)),
-                "Raw Scans",
+                "Archive",
                 jpeg
             )
         )
