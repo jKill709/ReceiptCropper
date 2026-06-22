@@ -24,7 +24,7 @@ A Python-based image processing module for detecting and cropping receipt images
     └── Text
 ```
 
-Test images are located in the 'Scanned' folder, which is where the demo will look for them.  After the demo runs, the uncropped orginals will be placed into the 'Archive' folder, and the Cropped outputs will be placed in the 'Cropped' folder.  OCR Output will be in the 'Text' folder.
+Test images are located in the 'Scanned' folder, which is where the demo will look for them.  After the demo runs, the uncropped orginals will be placed into the 'Archive' folder, and the Cropped outputs will be placed in the 'Cropped' folder.  OCR Output will be in the 'Text' folder.  To reset the demo, you must delete the output files in 'Cropped' and 'Text' directoies, and move test images from 'Archived' back to 'Scanned'.
 
 ## Purpose
 
@@ -43,7 +43,7 @@ Python 3.14.3
 
 Install required dependencies:
 
-pip install pillow pytesseract opencv-python
+pip install pillow pytesseract
 
 Additionally, pytesseract requires the Tesseract OCR engine to be installed:
 
@@ -51,7 +51,7 @@ https://github.com/tesseract-ocr/tesseract
 
 ## Usage
 
-Run the module:
+Run the module as a demo:
 
 python "src/Reciept Cropper Module.py"
 
@@ -61,19 +61,18 @@ from Reciept_Cropper_Module import *
 
 ## Development Notes
 
-This repository contains the current working version of the receipt cropping module.
+This repository contains a demo version of the receipt cropping module.
 
 Additional experimental scripts used during development are intentionally excluded from version control. The .gitignore file is configured to include only:
 
 src/Reciept Cropper Module.py
 Verification images used for testing
-Future Improvements
 
 ## Potential enhancements:
 
 Improve receipt edge detection reliability
 Add automatic perspective correction
-Add OCR integration pipeline
+Improve OCR integration pipeline
 Create a command-line interface
 Add automated unit tests
 Package as a reusable Python library

@@ -1,6 +1,8 @@
 from PIL import Image
 import pytesseract
 import os
+from pathlib import Path
+import shutil
 
 
 def _get_column_bits(im, threshold=110):
@@ -183,11 +185,11 @@ def _get_yBound(row_Bits, row_Data, imHeight):
     return result
 
 
-def _get_next_temp_number():
+def _get_next_temp_number(directory):
     """
     Find the next available image number for generated receipt files.
     """
-    files = os.listdir()
+    files = os.listdir(directory)
 
     temp_files = [
         file for file in files
@@ -266,8 +268,38 @@ def proccess_Scan(fileName):
         rct.save(f"IMG {i}.jpg")
 
     create_text_file(
-        f"IMG{index}.txt",
-        pytesseract.image_to_string(f"IMG{index}.jpg")
+        f"IMG{rct}.txt",
+        pytesseract.image_to_string(i)
+    )
+
+def configure_tesseract():
+    """
+    Locate and configure the Tesseract OCR executable.
+    """
+
+    # First: check if tesseract is already in PATH
+    tesseract_path = shutil.which("tesseract")
+
+    if tesseract_path:
+        pytesseract.pytesseract.tesseract_cmd = tesseract_path
+        return tesseract_path
+
+
+    # Second: check common Windows install locations
+    common_paths = [
+        Path(r"C:\Program Files\Tesseract-OCR\tesseract.exe"),
+        Path(r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe"),
+    ]
+
+    for path in common_paths:
+        if path.exists():
+            pytesseract.pytesseract.tesseract_cmd = str(path)
+            return str(path)
+
+
+    raise RuntimeError(
+        "Tesseract OCR executable not found. "
+        "Install Tesseract or add it to your system PATH."
     )
 
 
@@ -281,19 +313,26 @@ if __name__ == '__main__':
     img_Images = []
 
     # Configure Tesseract OCR executable location
-    pytesseract.pytesseract.tesseract_cmd = (
-        r'X:\Your\Folder\Tesseract-OCR\tesseract'
-    )
+    tesseract = configure_tesseract()
+    print(f"Using Tesseract: {tesseract}")
+    #pytesseract.pytesseract.tesseract_cmd = (
+    #    r'X:\Your\Folder\Tesseract-OCR\tesseract'
+    #
 
     # Change to directory containing new scans
-    os.chdir(r"C:\Users\jerem\OneDrive\Documents\Code\Programming\Python\Reciept Cropper\verification images\scanned") #X:\Your\Folder\Reciepts\New")
+    PROJECT_ROOT = Path(__file__).parent.parent
+    ARCHIVE_DIR = os.path.join(PROJECT_ROOT, "verification images", "Archive")
+    CROPPED_DIR = os.path.join(PROJECT_ROOT, "verification images", "Cropped")
+    SCANNED_DIR = os.path.join(PROJECT_ROOT, "verification images", "Scanned")
+    TEXT_DIR = os.path.join(PROJECT_ROOT, "verification images", "Text")
+    os.chdir(SCANNED_DIR)
 
     # Ignore previously generated IMG files
     jpeg_files = [
         f for f in os.listdir()
         if f.endswith('.jpg') and not f.startswith("IMG")
     ]
-
+    
     # Process each scanned page
     for jpeg in jpeg_files:
 
@@ -305,25 +344,15 @@ if __name__ == '__main__':
         img_Images.extend(_crop_Scan(im))
 
         # Archive original scan
-        im.save(
-            os.path.join(
-                os.path.abspath(os.path.join(os.getcwd(), os.pardir)),
-                "Archive",
-                jpeg
-            )
-        )
+        im.save(os.path.join(ARCHIVE_DIR, jpeg))
 
         os.remove(jpeg)
 
     # Save cropped receipts and perform OCR
-    for i, rct in enumerate(img_Images, _get_next_temp_number()):
+    for i, rct in enumerate(img_Images, _get_next_temp_number(CROPPED_DIR)):
+        rct.save(os.path.join(CROPPED_DIR, f"IMG{i}.jpg"))
 
-        rct.save(f"IMG{i}.jpg")
-
-        create_text_file(
-            f"IMG{i}.txt",
-            pytesseract.image_to_string(f"IMG{i}.jpg")
-        )
+        create_text_file(os.path.join(TEXT_DIR, f"IMG{i}.txt"), pytesseract.image_to_string(rct))
 
     print(os.getcwd())
     print(f"Scanned Images:  {len(jpeg_files)}")
