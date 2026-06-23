@@ -1,11 +1,14 @@
 # Ignore everything
 *
 
-# Include LICENSE and README.md
+
+# Include Git metadata files and documentation
+!.gitignore
 !LICENSE
 !README.md
 
 # Include the receipt cropper module
+!src/
 !src/receipt_cropper_module.py
 
 # Include all verification images
