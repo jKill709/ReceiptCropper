@@ -6,7 +6,7 @@
 !README.md
 
 # Include the receipt cropper module
-!src/reciept_cropper_module.py
+!src/receipt_cropper_module.py
 
 # Include all verification images
 !verification images/
