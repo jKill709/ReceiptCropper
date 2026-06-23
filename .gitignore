@@ -1,17 +1,16 @@
-# Ignore everything
-*
+# Python cache
+__pycache__/
+*.py[cod]
 
+# Pytest cache
+.pytest_cache/
 
-# Include Git metadata files and documentation
-!.gitignore
-!LICENSE
-!README.md
+# Virtual environments
+.venv/
+venv/
 
-# Include the receipt cropper module
-!src/
-!src/receipt_cropper_module.py
-
-# Include all verification images
-!verification images/
-!verification images/*
-
+# Development scripts / experiments
+src/BlockData.py
+src/GPT_*.py
+src/GPT_6 (Threshold Test).py
+src/receipt_cropper.py

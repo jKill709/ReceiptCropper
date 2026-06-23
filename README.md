@@ -10,7 +10,10 @@ A Python-based image processing module for detecting and cropping receipt images
 ├── README.md
 │
 ├── src
-│   └── Reciept Cropper Module.py
+│   └── receipt_cropper_module.py
+│
+├── tests
+│   └── test_receipt_cropper.py
 │
 └── verification images
     ├── Archive
@@ -20,7 +23,6 @@ A Python-based image processing module for detecting and cropping receipt images
     │   ├── Test Image 2.jpg
     │   ├── Test Image 3.jpg
     │   └── Test Image 4.jpg
-    │
     └── Text
 ```
 
