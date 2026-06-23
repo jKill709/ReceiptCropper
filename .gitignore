@@ -1,9 +1,14 @@
-# Ignore everything in src
-src/*
+# Ignore everything
+*
 
-# But include the receipt cropper module
-!src/Reciept Cropper Module.py
+# Include LICENSE and README.md
+!LICENSE
+!README.md
+
+# Include the receipt cropper module
+!src/reciept_cropper_module.py
 
 # Include all verification images
 !verification images/
 !verification images/*
+
