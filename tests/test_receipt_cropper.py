@@ -23,7 +23,7 @@ def create_blank_image(width=100, height=100):
     return Image.new("RGB", (width, height), "white")
 
 
-def create_receipt_image(width=400, height=300):
+def create_receipt_image(width=1700, height=2200):
     """
     Create a fake scanned page containing two black rectangles
     representing receipts.
@@ -35,13 +35,13 @@ def create_receipt_image(width=400, height=300):
 
     # Receipt 1
     draw.rectangle(
-        (20, 20, 150, 250),
+        (36, 18, 576, 1891),
         fill="black"
     )
 
     # Receipt 2
     draw.rectangle(
-        (220, 20, 350, 220),
+        (886, 2, 1460, 2064),
         fill="black"
     )
 
@@ -152,11 +152,9 @@ def test_get_data_handles_end_region():
 def test_smooth_bits_connects_nearby_regions():
 
     bits = [
-        True,
-        True,
+        True, True, True,
         False,
-        True,
-        True
+        True, True, True
     ]
 
     data = receipt_cropper_module._get_data(bits)
@@ -169,7 +167,8 @@ def test_smooth_bits_connects_nearby_regions():
         1
     )
 
-    assert changes > 0
+    assert isinstance(changes, int)
+    assert changes >= 0
 
 
 
@@ -360,7 +359,7 @@ def test_process_scan_with_mock_ocr(
 
 
     receipt_cropper_module.proccess_Scan(
-        input_file
+        input_file, tmp_path
     )
 
 

@@ -252,7 +252,7 @@ def create_text_file(file_name, file_contents):
         f.write(file_contents)
 
 
-def proccess_Scan(fileName):
+def proccess_Scan(fileName, output_dir):
     """
     Process a single scan file.
 
@@ -263,11 +263,11 @@ def proccess_Scan(fileName):
 
     results = _crop_Scan(im)
 
-    for i, rct in enumerate(results, _get_next_temp_number()):
+    for i, rct in enumerate(results, _get_next_temp_number(output_dir)):
         rct.save(f"IMG {i}.jpg")
 
     create_text_file(
-        f"IMG{rct}.txt",
+        f"IMG{i}.txt",
         pytesseract.image_to_string(i)
     )
 
