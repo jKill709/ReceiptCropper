@@ -268,7 +268,7 @@ def proccess_Scan(fileName, output_dir):
 
     create_text_file(
         f"IMG{i}.txt",
-        pytesseract.image_to_string(i)
+        pytesseract.image_to_string(rct)
     )
 
 def configure_tesseract():
@@ -320,10 +320,10 @@ if __name__ == '__main__':
 
     # Change to directory containing new scans
     PROJECT_ROOT = Path(__file__).parent.parent
-    ARCHIVE_DIR = os.path.join(PROJECT_ROOT, "verification images", "Archive")
-    CROPPED_DIR = os.path.join(PROJECT_ROOT, "verification images", "Cropped")
-    SCANNED_DIR = os.path.join(PROJECT_ROOT, "verification images", "Scanned")
-    TEXT_DIR = os.path.join(PROJECT_ROOT, "verification images", "Text")
+    ARCHIVE_DIR = os.path.join(PROJECT_ROOT, "tests", "verification images", "Archive")
+    CROPPED_DIR = os.path.join(PROJECT_ROOT, "tests", "verification images", "Cropped")
+    SCANNED_DIR = os.path.join(PROJECT_ROOT, "tests", "verification images", "Scanned")
+    TEXT_DIR = os.path.join(PROJECT_ROOT, "tests", "verification images", "Text")
     os.chdir(SCANNED_DIR)
 
     # Ignore previously generated IMG files
@@ -345,7 +345,7 @@ if __name__ == '__main__':
         # Archive original scan
         im.save(os.path.join(ARCHIVE_DIR, jpeg))
 
-        os.remove(jpeg)
+        # os.remove(jpeg) # Uncomment this for realitic logic flow.  Leave commented for repeatable demo.
 
     # Save cropped receipts and perform OCR
     for i, rct in enumerate(img_Images, _get_next_temp_number(CROPPED_DIR)):
